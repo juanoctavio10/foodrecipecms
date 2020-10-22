@@ -4,6 +4,8 @@ $(document).ready(function(){
 
     var editor =  ace.edit("editor");
     editor.session.setMode("ace/mode/html");
+    editor.setValue($("#content").val());
+
 
 
 
@@ -17,8 +19,8 @@ $(document).ready(function(){
 
     new List('sortable-blog-list',options);
 
-
-
+    
+ 
 
     $("#submit").click(function(){
         var title = $("#title").val();
@@ -26,16 +28,37 @@ $(document).ready(function(){
         var date = $("#date").val();
         var content = editor.getValue();
 
-        $.post("saverecipe.php",{
+
+        $.post("/foodrecipecms/saverecipe.php",{
             title: title,
             content: content,
             author: author,
-            data:date
+            date:date
         }).done(function(data){
+           // alert(data);
             window.location = "/foodrecipecms/index.php";
         })
 
+        
     });
+
+
+     
+
+    $("#delete").click(function(){
+        var title = $("#title").val();
+       
+
+        $.post("/foodrecipecms/deleterecipe.php",{
+            title: title
+        }).done(function(data){
+            //alert(data);
+            window.location = "/foodrecipecms/index.php";
+        })
+
+        
+    });
+
 
 
 });

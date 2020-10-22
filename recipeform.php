@@ -17,20 +17,43 @@
     include 'nav.php';
 ?>
 
+<?php 
+    $title="";
+    $author="";
+    $date="";
+    $content="";
+
+    if (isset($_GET['title'])){
+        $title=$_GET['title'];
+        include 'db_connect.php';
+        $sql = "select * from recipes where title='".$title."'";
+        $result = mysqli_query($conn,$sql);
+
+        while ($row = mysqli_fetch_assoc($result)){
+            $author=$row['author'];
+            $date=$row['date'];
+            $content=$row['content'];
+        }
+
+    } 
+    
+    //$_GET['title']
+
+?>
+
 <main>
-    <form action="submit-post.php" method="POST" >
+    <form action="" method="POST" >
         <label for="fname">Title:</label><br>
-        <input type="text" id="title" name="title" value=""><br>
+        <input type="text" id="title" name="title" value="<?php echo $title ?>" ><br>
         <label for="lname">Autor:</label><br>
-        <input type="text" id="autor" name="autor" value=""><br><br>
+        <input type="text" id="autor" name="autor" value="<?php echo $author ?>"><br><br>
         <label for="lname">Date:</label><br>
-        <input type="date" id="date" name="date" value=""><br><br>
+        <input type="date" id="date" name="date" value="<?php echo $date ?>"><br><br>
         <label for="lname">Content:</label><br>
-        <textarea  id="content" name="content" value="" > </textarea> <br><br>
+        <textarea  style="display:none" id="content" name="content" > <?php echo $content ?> </textarea> <br><br> 
         <div id="editor"> </div>
-        <button id="submit" > Save </input>
-        <button id="edit" > Edit </input>
-        <button id="delete" > Delete </input>
+        <button type="button" id="submit" > Save </button>
+        <button type="button" id="delete" > Delete </button>
       </form>
 </main>
 

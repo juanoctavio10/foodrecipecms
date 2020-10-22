@@ -29,7 +29,7 @@
 
             $postTitles = getPostTitlesFromDatabase();
             foreach($postTitles as $postTitle){
-                echo "<li> <a href='post.php?title=". $postTitle . "' class='title' >" . $postTitle . "</a> </li>";
+                echo "<li> <a href='recipeform.php?title=". $postTitle . "' class='title' >" . $postTitle . "</a> </li>";
             }
         ?>
         
